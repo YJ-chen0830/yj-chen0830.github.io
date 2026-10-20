@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>搬移本機資料 · 工程計算中心</title>
+<style>
+body{margin:0;background:#F7F4EC;color:#0A1A33;font:14px/1.7 "Noto Sans TC","Segoe UI",sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;}
+.box{background:#fff;border:1px solid #E2DDD1;border-radius:12px;padding:24px 26px;max-width:380px;margin:16px;text-align:center;}
+h1{font-size:17px;margin:0 0 8px;}
+p{margin:0;color:#555;}
+.ok{color:#1a6e35;font-weight:700;}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>搬移本機資料</h1>
+  <p id="st">等待舊網址的工具頁傳送資料…</p>
+</div>
+<script>
+/* 網址搬遷用：由舊網址（yj-chen0830.github.io）工具頁上的「搬移我的資料」
+   以小視窗開啟，收到 postMessage 後把資料寫進本網域的 localStorage。
+   只接受舊網址傳來的訊息；本網域已有的同名資料不覆蓋。 */
+(function(){
+  var FROM='https://yj-chen0830.github.io';
+  var st=document.getElementById('st');
+  if(!window.opener){st.textContent='這個頁面要從舊網址工具頁上的「搬移我的資料」開啟。';return;}
+  window.addEventListener('message',function(e){
+    if(e.origin!==FROM||e.source!==window.opener||!e.data||e.data.type!=='jrh-migrate-data')return;
+    var data=e.data.data||{},written=0,skipped=0;
+    Object.keys(data).forEach(function(k){
+      if(typeof data[k]!=='string')return;
+      try{
+        if(localStorage.getItem(k)!==null){skipped++;return;}
+        localStorage.setItem(k,data[k]);written++;
+      }catch(err){skipped++;}
+    });
+    e.source.postMessage({type:'jrh-migrate-done',written:written,skipped:skipped},FROM);
+    st.className='ok';
+    st.textContent='✔ 已搬移 '+written+' 筆資料'+(skipped?'（'+skipped+' 筆本網址已有，未覆蓋）':'')+'。這個視窗會自動關閉。';
+    setTimeout(function(){window.close();},2500);
+  });
+  window.opener.postMessage({type:'jrh-migrate-ready'},FROM);
+})();
+</script>
+</body>
+</html>
