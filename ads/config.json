@@ -1,0 +1,29 @@
+{
+  "_說明": "廣告總開關與內容。enabled=false 時全站不顯示任何廣告。詳見 ads/README.md。",
+  "enabled": false,
+  "hideForMembers": false,
+  "excludePaths": ["/workflow.html", "/privacy.html", "/terms.html", "/migrate.html", "/404.html"],
+  "adsense": {
+    "enabled": false,
+    "client": "ca-pub-0000000000000000",
+    "slots": { "home": "", "tool": "" }
+  },
+  "house": {
+    "enabled": false,
+    "items": [
+      {
+        "id": "sample",
+        "active": false,
+        "placements": ["home", "tool"],
+        "start": "2026-01-01",
+        "end": "2099-12-31",
+        "weight": 1,
+        "sponsor": "範例廠商",
+        "title": "範例：廠商廣告標題",
+        "text": "一句話說明產品或服務，建議 40 字以內。",
+        "image": "",
+        "url": "https://example.com/"
+      }
+    ]
+  }
+}

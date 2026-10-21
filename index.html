@@ -500,6 +500,9 @@ body.modal-open{overflow:hidden;}
   <p>試試其他關鍵字，或清除搜尋條件查看全部 108 個工具。</p>
 </div>
 
+<!-- 廣告欄位：由 ads/ads.js 依 ads/config.json 填入，沒開廣告時保持隱藏 -->
+<div data-ad-slot="home" hidden></div>
+
 <!-- ===== 1. 進度管理 ===== -->
 <section class="section" data-cat="progress" id="sec-progress">
   <div class="section-hdr">
@@ -987,6 +990,8 @@ body.modal-open{overflow:hidden;}
 
   </div>
 </section>
+
+<div data-ad-slot="home" hidden></div>
 
 <!-- ===== 3. 結構計算 ===== -->
 <section class="section" data-cat="structure" id="sec-structure">
@@ -4049,5 +4054,6 @@ body.modal-open{overflow:hidden;}
 })();
 </script>
 
+<script src="ads/ads.js" defer></script>
 </body>
 </html>
